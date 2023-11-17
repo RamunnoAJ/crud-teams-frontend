@@ -1,20 +1,11 @@
-import { Link } from 'react-router-dom'
-import useGetTeams from '../hooks/useGetTeams'
+import TeamsContainer from '../components/TeamsContainer'
 
 function Home() {
-  const { teams } = useGetTeams()
-
   return (
-    <>
-      <h1>Teams</h1>
-      <ul>
-        {teams.map(team => (
-          <li key={team.id}>
-            <Link to={`/teams/${team.id}`}>{team.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </>
+    <main className='flex flex-col justify-center items-center gap-4 py-6 w-11/12 mx-auto max-w-7xl'>
+      <h1 className='text-3xl md:text-5xl font-bold uppercase'>Teams</h1>
+      <TeamsContainer />
+    </main>
   )
 }
 
