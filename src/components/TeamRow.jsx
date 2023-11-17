@@ -10,10 +10,29 @@ TeamRow.propTypes = {
     tla: PropTypes.string,
     country: PropTypes.string,
   }),
+  setUpdateTeams: PropTypes.func,
 }
 
-function TeamRow({ team }) {
+function TeamRow({ team, setUpdateTeams }) {
   const { id, name, tla, country } = team
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/teams/${id}`, {
+        method: 'DELETE',
+      })
+      if (!response.ok)
+        throw new Error(`HTTP Error! Status: ${response.status}`)
+
+      const message = await response.text()
+
+      setUpdateTeams(prev => !prev)
+      console.log(message)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <tr>
       <td className='p-4 py-2'>{id}</td>
@@ -27,7 +46,7 @@ function TeamRow({ team }) {
         <Link to={`/s/${id}/edit`}>
           <FontAwesomeIcon icon={faEdit} size='lg' />
         </Link>
-        <button onClick={() => console.log(id)}>
+        <button onClick={handleDelete}>
           <FontAwesomeIcon icon={faTrash} size='lg' />
         </button>
       </td>
