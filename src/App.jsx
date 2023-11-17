@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './components/Home'
-import Team from './components/Team'
+import Home from './pages/Home'
+import Team from './pages/Team'
 
 function App() {
   return (
