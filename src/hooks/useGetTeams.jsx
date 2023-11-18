@@ -8,7 +8,6 @@ function useGetTeams() {
   async function getTeams() {
     try {
       const teamsData = await get('/teams')
-      console.log(teamsData)
       setTeams(teamsData)
     } catch (error) {
       console.error('Error fetching the data:', error)
@@ -19,7 +18,7 @@ function useGetTeams() {
     getTeams()
   }, [updateTeams])
 
-  return { teams, setUpdateTeams, updateTeams }
+  return { teams, setUpdateTeams }
 }
 
 export default useGetTeams
