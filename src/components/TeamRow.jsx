@@ -2,6 +2,7 @@ import { PropTypes } from 'prop-types'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import useDeleteTeam from '../hooks/useDeleteTeam'
 
 TeamRow.propTypes = {
   team: PropTypes.shape({
@@ -15,22 +16,11 @@ TeamRow.propTypes = {
 
 function TeamRow({ team, setUpdateTeams }) {
   const { id, name, tla, country } = team
+  const { onDeleteTeam } = useDeleteTeam()
 
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/teams/${id}`, {
-        method: 'DELETE',
-      })
-      if (!response.ok)
-        throw new Error(`HTTP Error! Status: ${response.status}`)
-
-      const message = await response.text()
-
-      setUpdateTeams(prev => !prev)
-      console.log(message)
-    } catch (error) {
-      console.log(error)
-    }
+  function handleDelete() {
+    onDeleteTeam(id)
+    setUpdateTeams(prev => !prev)
   }
 
   return (

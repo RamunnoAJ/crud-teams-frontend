@@ -12,8 +12,7 @@ export async function get(url) {
     const result = await response.json()
     return result
   } catch (error) {
-    console.error('Error fetching the data:', error)
-    throw error
+    throw new Error(error)
   }
 }
 
