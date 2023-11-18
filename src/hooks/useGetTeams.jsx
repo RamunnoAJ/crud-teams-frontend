@@ -1,28 +1,25 @@
 import { useState, useEffect } from 'react'
-import { getDataFromDB } from '../utils/getDataFromDB'
+import { get } from '../services/api'
 
 function useGetTeams() {
   const [teams, setTeams] = useState([])
-  const [loading, setLoading] = useState(true)
   const [updateTeams, setUpdateTeams] = useState(false)
 
-  const getTeams = async () => {
-    setLoading(true)
+  async function getTeams() {
     try {
-      const teamsData = await getDataFromDB('/teams')
+      const teamsData = await get('/teams')
+      console.log(teamsData)
       setTeams(teamsData)
     } catch (error) {
-      console.error(error)
+      console.error('Error fetching the data:', error)
     }
-
-    setLoading(false)
   }
 
   useEffect(() => {
     getTeams()
   }, [updateTeams])
 
-  return { teams, setUpdateTeams, loading }
+  return { teams, setUpdateTeams, updateTeams }
 }
 
 export default useGetTeams
