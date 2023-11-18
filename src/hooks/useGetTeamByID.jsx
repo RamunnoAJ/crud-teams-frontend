@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import { getDataFromDB } from '../utils/getDataFromDB'
+import { get } from '../services/api'
 
 function useGetTeamByID(id) {
   const [team, setTeam] = useState([])
 
   useEffect(() => {
     const getTeam = async () => {
-      const teamSelected = await getDataFromDB(`/teams/${id}`)
+      const teamSelected = await get(`/teams/${id}`)
       setTeam(teamSelected)
     }
 
