@@ -27,3 +27,15 @@ export async function deleteTeam(id) {
     console.log(error)
   }
 }
+
+export async function resetTeams() {
+  try {
+    const response = await fetch(`${API_URL}/teams/reset`, {
+      method: 'POST',
+    })
+
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
