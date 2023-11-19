@@ -1,9 +1,12 @@
-import useGetTeams from '../hooks/useGetTeams'
+import { PropTypes } from 'prop-types'
 import TeamRow from './TeamRow'
 
-function TeamsContainer() {
-  const { teams, setUpdateTeams } = useGetTeams()
+TeamsContainer.propTypes = {
+  teams: PropTypes.array.isRequired,
+  setUpdateTeams: PropTypes.func.isRequired,
+}
 
+function TeamsContainer({ teams, setUpdateTeams }) {
   return (
     <table className='w-full text-center table-auto border-separate border-spacing-x-1 bg-slate-800 text-slate-300 shadow-sm border-2 border-y-8 md:border-8 border-slate-800 mb-8'>
       <thead className='font-semibold bg-slate-700'>
