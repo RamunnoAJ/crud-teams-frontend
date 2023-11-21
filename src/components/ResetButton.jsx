@@ -6,9 +6,9 @@ ResetButton.propTypes = {
   setUpdateTeams: PropTypes.func,
 }
 
-function ResetButton({ setUpdateTeams }) {
-  function handleClick() {
-    resetTeams()
+function ResetButton({ setUpdateTeams = () => {} }) {
+  async function handleClick() {
+    await resetTeams()
     setUpdateTeams(prev => !prev)
   }
 
