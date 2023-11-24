@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { deleteTeam } from '../services/api'
+import Modal from './Modal'
 
 TeamRow.propTypes = {
   team: PropTypes.shape({
@@ -19,6 +20,7 @@ function TeamRow({ team, setUpdateTeams }) {
 
   async function handleDelete() {
     await deleteTeam(id)
+    await new Promise(resolve => setTimeout(resolve, 500))
 
     setUpdateTeams(prev => !prev)
   }
@@ -37,9 +39,12 @@ function TeamRow({ team, setUpdateTeams }) {
           <Link to={`/s/${id}/edit`}>
             <FontAwesomeIcon icon={faEdit} size='lg' />
           </Link>
-          <button onClick={handleDelete}>
+          <Modal
+            title='Delete Team'
+            onAccept={handleDelete}
+            body={`Are you sure you want to delete ${name}?`}>
             <FontAwesomeIcon icon={faTrash} size='lg' />
-          </button>
+          </Modal>
         </td>
       </tr>
     )
