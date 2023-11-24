@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { PropTypes } from 'prop-types'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,24 +20,32 @@ function TeamRow({ team, setUpdateTeams }) {
   const { id, name, tla, country } = team
 
   async function handleDelete() {
-    await deleteTeam(id)
-    await new Promise(resolve => setTimeout(resolve, 500))
-
-    setUpdateTeams(prev => !prev)
+    try {
+      await deleteTeam(id)
+      toast.success('Team deleted successfully', {
+        onClose: () => setUpdateTeams(prev => !prev),
+      })
+    } catch (error) {
+      toast.error('Error deleting team')
+    }
   }
 
   return (
     team && (
-      <tr>
-        <td className='p-4 py-2'>{id}</td>
-        <td className='p-4 py-2 text-start'>{name}</td>
-        <td className='p-4 py-2 hidden md:table-cell'>{tla}</td>
-        <td className='p-4 py-2 hidden md:table-cell'>{country}</td>
-        <td className='p-4 py-2 flex justify-center gap-4'>
-          <Link to={`/s/${id}`}>
+      <tr className='border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 font-light last:border-none'>
+        <td className='whitespace-nowrap px-6 py-4 font-bold'>{id}</td>
+        <td className='whitespace-nowrap px-6 py-4'>{name}</td>
+        <td className='whitespace-nowrap px-6 py-4 hidden md:table-cell'>
+          {tla}
+        </td>
+        <td className='whitespace-nowrap px-6 py-4 hidden md:table-cell'>
+          {country}
+        </td>
+        <td className='whitespace-nowrap px-6 py-4 flex justify-center gap-4'>
+          <Link to={`/teams/${id}`}>
             <FontAwesomeIcon icon={faEye} size='lg' />
           </Link>
-          <Link to={`/s/${id}/edit`}>
+          <Link to={`/teams/${id}/edit`}>
             <FontAwesomeIcon icon={faEdit} size='lg' />
           </Link>
           <Modal
