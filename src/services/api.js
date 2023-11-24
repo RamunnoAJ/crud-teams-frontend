@@ -2,7 +2,6 @@ const API_URL = import.meta.env.VITE_BACKEND_URL
 
 export async function get(url) {
   try {
-    await new Promise(resolve => setTimeout(resolve, 300))
     const response = await fetch(`${API_URL}${url}`, {
       method: 'GET',
       headers: {
