@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { PropTypes } from 'prop-types'
 import { resetTeams } from '../services/api'
 import Button from './Button'
@@ -8,8 +9,14 @@ ResetButton.propTypes = {
 
 function ResetButton({ setUpdateTeams = () => {} }) {
   async function handleClick() {
-    await resetTeams()
-    setUpdateTeams(prev => !prev)
+    try {
+      await resetTeams()
+      toast.success('Teams resetted successfully', {
+        onClose: () => setUpdateTeams(prev => !prev),
+      })
+    } catch (error) {
+      toast.error('Error resetting teams')
+    }
   }
 
   return <Button onClick={handleClick}>Reset Teams</Button>
