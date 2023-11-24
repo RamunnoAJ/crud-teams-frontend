@@ -9,27 +9,35 @@ TeamsContainer.propTypes = {
 function TeamsContainer({ teams, setUpdateTeams }) {
   return (
     teams && (
-      <table className='w-full text-center table-auto border-separate border-spacing-x-1 bg-slate-800 text-slate-300 shadow-sm border-2 border-y-8 md:border-8 border-slate-800 mb-8'>
-        <thead className='font-semibold bg-slate-700'>
-          <tr>
-            <th className='p-4 py-2'>ID</th>
-            <th className='p-4 py-2'>Name</th>
-            <th className='p-4 py-2 hidden md:table-cell'>TLA</th>
-            <th className='p-4 py-2 hidden md:table-cell'>Country</th>
-            <th className='p-4 py-2'>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teams &&
-            teams.map(team => (
-              <TeamRow
-                key={team.id}
-                team={team}
-                setUpdateTeams={setUpdateTeams}
-              />
-            ))}
-        </tbody>
-      </table>
+      <div className='flex flex-col rounded-lg border border-neutral-500'>
+        <div className='overflow-x-auto p-4'>
+          <div className='inline-block min-w-full py-2 sm:px-6 lg:px-8'>
+            <div className='overflow-hidden'>
+              <table className='min-w-full table-auto text-left text-sm shadow-sm mb-8'>
+                <thead className='border-b border-neutral-500 font-bold'>
+                  <tr>
+                    <th className='px-6 py-4'>#</th>
+                    <th className='px-6 py-4'>Name</th>
+                    <th className='px-6 py-4 hidden md:table-cell'>TLA</th>
+                    <th className='px-6 py-4 hidden md:table-cell'>Country</th>
+                    <th className='px-6 py-4 text-center'>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teams &&
+                    teams.map(team => (
+                      <TeamRow
+                        key={team.id}
+                        team={team}
+                        setUpdateTeams={setUpdateTeams}
+                      />
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   )
 }
