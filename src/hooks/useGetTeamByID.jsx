@@ -11,7 +11,7 @@ function useGetTeamByID(id) {
     }
 
     getTeam()
-  })
+  }, [id])
 
   return { team }
 }
