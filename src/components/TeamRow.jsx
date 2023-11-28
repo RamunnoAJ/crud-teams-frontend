@@ -32,7 +32,7 @@ function TeamRow({ team, setUpdateTeams }) {
 
   return (
     team && (
-      <tr className='border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 font-light last:border-none'>
+      <tr className='border-b transition duration-300 ease-in-out border-neutral-500 hover:bg-neutral-600 font-light last:border-none'>
         <td className='whitespace-nowrap px-6 py-4 font-bold'>{id}</td>
         <td className='whitespace-nowrap px-6 py-4'>{name}</td>
         <td className='whitespace-nowrap px-6 py-4 hidden md:table-cell'>
