@@ -1,5 +1,9 @@
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
+/**
+ * @param {String} url
+ * @returns {import('../entities/team').Team}
+ */
 export async function get(url) {
   try {
     const response = await fetch(`${API_URL}${url}`, {
@@ -16,6 +20,9 @@ export async function get(url) {
   }
 }
 
+/**
+ * @param {Number} id
+ */
 export async function deleteTeam(id) {
   try {
     const response = await fetch(`${API_URL}/teams/${id}`, {
@@ -34,5 +41,25 @@ export async function resetTeams() {
     })
   } catch (error) {
     console.log(error)
+  }
+}
+
+/**
+ * @param {Number} id
+ * @param {import('../entities/team').Team} team
+ * @param {String} method
+ */
+export async function send(id, team, method) {
+  try {
+    const response = await fetch(`${API_URL}/teams/${id}`, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(team),
+    })
+    return response
+  } catch (error) {
+    console.error(error)
   }
 }
