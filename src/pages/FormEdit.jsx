@@ -29,12 +29,17 @@ function FormEdit() {
   const { id } = useParams()
   const { team } = useGetTeamByID(id)
   const [teamData, setTeamData] = useState({})
+  const [imageFile, setImageFile] = useState(null)
 
   function handleChange(e) {
-    setTeamData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }))
+    if (e.target.name === 'image') {
+      setImageFile(e.target.files[0])
+    } else {
+      setTeamData(prev => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }))
+    }
   }
 
   async function handleSubmit(e) {
@@ -45,8 +50,14 @@ function FormEdit() {
       lastUpdated: new Date().toISOString().split('T')[0],
     }
 
+    const formData = new FormData()
+    formData.append('image', imageFile)
+    for (const key in teamUpdated) {
+      formData.append(key, teamUpdated[key])
+    }
+
     try {
-      await send(id, teamUpdated, 'PATCH')
+      await send(id, formData, 'PATCH')
       toast.success('Team updated successfully')
     } catch (error) {
       toast.error('Error updating team')
@@ -57,6 +68,7 @@ function FormEdit() {
     <>
       <Link to='/'>Back</Link>
       <form
+        encType='multipart/form-data'
         className='flex flex-col justify-center items-center gap-2 py-8'
         onSubmit={handleSubmit}>
         <h1>

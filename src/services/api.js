@@ -8,9 +8,6 @@ export async function get(url) {
   try {
     const response = await fetch(`${API_URL}${url}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     })
 
     const result = await response.json()
@@ -53,10 +50,7 @@ export async function send(id, team, method) {
   try {
     const response = await fetch(`${API_URL}/teams/${id}`, {
       method: method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(team),
+      body: team,
     })
     return response
   } catch (error) {
