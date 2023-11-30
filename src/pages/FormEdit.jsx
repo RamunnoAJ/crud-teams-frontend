@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import Input from '../components/Input'
 import useGetTeamByID from '../hooks/useGetTeamByID'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { send } from '../services/api'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
@@ -30,6 +30,7 @@ function FormEdit() {
   const { team } = useGetTeamByID(id)
   const [teamData, setTeamData] = useState({})
   const [imageFile, setImageFile] = useState(null)
+  const navigate = useNavigate()
 
   function handleChange(e) {
     if (e.target.name === 'image') {
@@ -47,7 +48,7 @@ function FormEdit() {
     const teamUpdated = {
       ...team,
       ...teamData,
-      lastUpdated: new Date().toISOString().split('T')[0],
+      lastUpdated: new Date().toISOString(),
     }
 
     const formData = new FormData()
@@ -58,7 +59,9 @@ function FormEdit() {
 
     try {
       await send(id, formData, 'PATCH')
-      toast.success('Team updated successfully')
+      toast.success('Team updated successfully', {
+        onClose: () => navigate(`/teams/${id}`),
+      })
     } catch (error) {
       toast.error('Error updating team')
     }
