@@ -5,9 +5,10 @@ Input.propTypes = {
   type: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
-function Input({ name, type, labelText, onChange }) {
+function Input({ name, type, labelText, onChange, value }) {
   return (
     <div className='flex flex-col w-full gap-2 max-w-xs'>
       <label htmlFor={name}>{labelText}:</label>
@@ -17,6 +18,7 @@ function Input({ name, type, labelText, onChange }) {
         name={name}
         id={name}
         onChange={onChange}
+        defaultValue={value}
       />
     </div>
   )
