@@ -19,7 +19,11 @@ function ResetButton({ setUpdateTeams = () => {} }) {
     }
   }
 
-  return <Button onClick={handleClick}>Reset Teams</Button>
+  return (
+    <Button onClick={handleClick} color='blue'>
+      Reset Teams
+    </Button>
+  )
 }
 
 export default ResetButton
