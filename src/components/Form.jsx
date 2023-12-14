@@ -6,8 +6,7 @@ import Team from '../entities/Team'
 
 Form.propTypes = {
   type: PropTypes.oneOf(['create', 'edit']).isRequired,
-  team: PropTypes.oneOfType([PropTypes.instanceOf(Team), PropTypes.array])
-    .isRequired,
+  team: PropTypes.oneOfType([PropTypes.instanceOf(Team), PropTypes.array]),
   onSuccess: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
 }
@@ -48,7 +47,8 @@ function Form({ type, team, onSuccess, onError }) {
     }
 
     try {
-      await send(team.id, formData, httpMethod)
+      const response = await send(team?.id || 'create', formData, httpMethod)
+      if (!response.ok) throw new Error(response.statusText)
       onSuccess()
     } catch (error) {
       onError()
@@ -61,8 +61,8 @@ function Form({ type, team, onSuccess, onError }) {
         encType='multipart/form-data'
         className='flex flex-col justify-center items-center gap-2 py-8'
         onSubmit={handleSubmit}>
-        <h1>
-          Edit team: #{team.id} - {team.name}
+        <h1 className='text-3xl font-medium'>
+          {title === 'Create Team' ? 'Create Team' : `Edit ${team?.name}`}
         </h1>
 
         <Input
