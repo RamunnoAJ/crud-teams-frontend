@@ -11,8 +11,8 @@ function MapContainer({ address }) {
     <>
       {mapAddress && (
         <iframe
-          width='600'
-          height='450'
+          width='384'
+          height='300'
           loading='lazy'
           allowFullScreen
           referrerPolicy='no-referrer-when-downgrade'
